@@ -1,6 +1,6 @@
 # ===== COMPILER =====
 CXX := g++
-CXXFLAGS := -std=c++20 -Wall -Wextra -Wpedantic -Iinclude
+CXXFLAGS := -std=c++17 -Wall -Wextra -Wpedantic -Iinclude
 
 # ===== DIRECTORIES =====
 BUILD_DIR := build

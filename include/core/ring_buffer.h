@@ -21,7 +21,7 @@ class spsc_ring_buffer {
   spsc_ring_buffer(const spsc_ring_buffer&) = delete;
   spsc_ring_buffer& operator=(const spsc_ring_buffer&) = delete;
 
-  // Writer
+  // Producer
 
   T* alloc() noexcept {
     const std::uint32_t write = write_idx_.load(std::memory_order_relaxed);
@@ -89,7 +89,7 @@ class spsc_ring_buffer {
     if (!slot)
       return false;
 
-    reader(slot);
+    consumer(slot);
     pop();
     return true;
   }

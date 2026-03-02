@@ -1,0 +1,21 @@
+[
+  {
+    "file": "src/main.cpp",
+    "arguments": [
+      "g++",
+      "-std=c++17",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-Iinclude",
+      "-MMD",
+      "-MP",
+      "-c",
+      "src/main.cpp",
+      "-o",
+      "build/objects/main.o"
+    ],
+    "directory": "/home/kesh/workData/projects/order_gen",
+    "output": "build/objects/main.o"
+  }
+]
