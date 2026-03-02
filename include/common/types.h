@@ -9,7 +9,7 @@
 
 enum class order_type { MARKET_ORDER, STOP_ORDER, LIMIT_ORDER };
 
-enum class side : std::int8_t { BUY = 1, SELL = -1 };
+enum class Side : std::int8_t { BUY = 1, SELL = -1 };
 
 namespace order {
 
@@ -23,7 +23,7 @@ using order_id = std::uint64_t;
 // ORDER
 struct order {
   order_id id{};
-  side side{};
+  Side side{};
   order_type type{};
   price_t price{};
   qty_t qty{};
