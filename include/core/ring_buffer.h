@@ -5,6 +5,7 @@
 #include <immintrin.h>
 #include <atomic>
 #include <cstdint>
+#include <thread>
 #include <type_traits>
 
 namespace rb {
@@ -23,8 +24,8 @@ class spsc_ring_buffer {
 
   // Producer
 
-  T* alloc() noexcept {
-    const std::uint32_t write = write_idx_.load(std::memory_order_relaxed);
+  T* alloc(std::uint32_t& write) noexcept {
+    write = write_idx_.load(std::memory_order_relaxed);
 
     if (write - read_idx_cache_ == Capacity) {
       read_idx_cache_ = read_idx_.load(std::memory_order_acquire);
@@ -37,8 +38,8 @@ class spsc_ring_buffer {
     return &data_[write & mask_];
   }
 
-  void push() noexcept {
-    const std::uint32_t write = write_idx_.load(std::memory_order_relaxed);
+  void push(std::uint32_t write) noexcept {
+    write = write_idx_.load(std::memory_order_relaxed);
 
     write_idx_.store(write + 1, std::memory_order_release);
   }
