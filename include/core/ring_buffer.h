@@ -5,7 +5,6 @@
 #include <immintrin.h>
 #include <atomic>
 #include <cstdint>
-#include <thread>
 #include <type_traits>
 
 namespace rb {
@@ -46,18 +45,23 @@ class spsc_ring_buffer {
 
   template <typename Producer>
   bool tryPush(Producer producer) noexcept {
-    T* slot = alloc();
+    std::uint32_t write;
+
+    T* slot = alloc(write);
     if (!slot)
       return false;
 
     producer(slot);
-    push();
+    push(write);
     return true;
   }
 
   template <typename Producer>
-  void blockPush(Producer producer) noexcept {
+  void blockPush(Producer producer, uint64_t& stalls) noexcept {
     while (!tryPush(producer)) {
+
+      stalls++;
+
 #if defined(__x86_64__) || defined(_M_X64)
       _mm_pause();
 #else

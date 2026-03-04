@@ -6,6 +6,7 @@
 // LIMIT: Sell or Buy at the stated price or better.
 
 #include <cstdint>
+#include "core/ring_buffer.h"
 
 enum class order_type { MARKET_ORDER, STOP_ORDER, LIMIT_ORDER };
 
@@ -21,13 +22,15 @@ using qty_t = std::uint32_t;
 using order_id = std::uint64_t;
 
 // ORDER
-struct order {
+struct Order {
   order_id id{};
   Side side{};
   order_type type{};
   price_t price{};
   qty_t qty{};
 };
+
+using OrderQueue = rb::spsc_ring_buffer<order::Order, 65536>;
 
 }  // namespace order
 
