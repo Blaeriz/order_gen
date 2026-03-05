@@ -1,3 +1,5 @@
+![testrun](./img/run.png)
+
 # Lock-Free SPSC Ring Buffer Order Generator
 
 A high-performance **single-producer single-consumer (SPSC) ring buffer** written in modern C++.
@@ -143,16 +145,8 @@ This is expected for well-implemented SPSC queues.
 
 ---
 
-# Future Improvements
+# References
 
-Possible extensions:
-
-- CPU core pinning for reduced jitter
-- Live latency histogram visualization
-- Multi-producer queues
-- Batch publishing
-- Backpressure strategies
-- NUMA experiments
-
----
+SPSC ring buffer: [Code](https://github.com/MengRao/SPSC_Queue/blob/master/SPSCQueue.h)
+atomics: [CppCon](https://www.youtube.com/watch?v=ZQFzMfHIxng&t=3144s&pp=ygUGY3BwY29u)
 
