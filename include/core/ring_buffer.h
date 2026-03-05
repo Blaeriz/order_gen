@@ -29,7 +29,7 @@ class spsc_ring_buffer {
     if (write - read_idx_cache_ == Capacity) {
       read_idx_cache_ = read_idx_.load(std::memory_order_acquire);
 
-      if (__builtin_expect(write - read_idx_cache_ == Capacity, 0)) {
+      if (write - read_idx_cache_ == Capacity) {
         return nullptr;  // FULL
       }
     }

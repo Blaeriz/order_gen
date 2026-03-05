@@ -6,6 +6,12 @@ extern std::atomic<bool> running;
 
 uint64_t stalls = 0;
 
+static inline uint64_t tsc_producer() {
+  unsigned lo, hi;
+  asm volatile("rdtsc" : "=a"(lo), "=d"(hi));
+  return ((uint64_t)hi << 32) | lo;
+}
+
 void producer(order::OrderQueue& queue) {
   // std::mt19937 rng(std::random_device{}());
   //
@@ -28,6 +34,8 @@ void producer(order::OrderQueue& queue) {
           slot->price = 10000;
 
           slot->qty = 1;
+
+          slot->enq_tsc = tsc_producer();
         },
         stalls);
   }

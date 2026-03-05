@@ -28,9 +28,13 @@ struct Order {
   order_type type{};
   price_t price{};
   qty_t qty{};
+
+  //timestamp
+  std::uint64_t enq_tsc{};
 };
 
-using OrderQueue = rb::spsc_ring_buffer<order::Order, 131072>;
+// can tinker with the size
+using OrderQueue = rb::spsc_ring_buffer<order::Order, 65536>;
 
 }  // namespace order
 
