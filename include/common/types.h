@@ -30,7 +30,7 @@ struct Order {
   qty_t qty{};
 };
 
-using OrderQueue = rb::spsc_ring_buffer<order::Order, 65536>;
+using OrderQueue = rb::spsc_ring_buffer<order::Order, 131072>;
 
 }  // namespace order
 
